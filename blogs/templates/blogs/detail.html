@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pragati Poudel blogs</title>
+</head>
+<body>
+    <h2>{{post.title}}</h2>
+    <p>{{post.content}}</p>
+    <h3>Comments</h3>
+    <div>
+        {% for comment in post.comment_set.all %}
+            <div>
+                <p>{{comment.message}}</p>
+                <div>{{comment.comment_user}}</div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <form action="{% url 'blogs:comment' post.id %}" method="post">
+        {% csrf_token %}
+        <textarea name="message"></textarea>
+        <input type="text" name="user" />
+        <button type="submit">comment</button>
+    </form>
+</body>
+</html>
